@@ -106,7 +106,7 @@
   }
 
   function enterHumanMode() {
-    console.log("[v0] Entering human mode...")
+    console.log("[Mod] Entering human mode...")
 
     // Store current aircraft reference
     originalAircraft = geofs.aircraft.instance
@@ -140,11 +140,11 @@
     window.humanTransformBtn.style.background = "#FF6B6B"
     window.humanInfoDiv.style.display = "block"
 
-    console.log("[v0] Human mode activated, aircraft deleted")
+    console.log("[Mod] Human mode activated, aircraft deleted")
   }
 
   function exitHumanMode() {
-    console.log("[v0] Exiting human mode...")
+    console.log("[Josh] Exiting human mode...")
 
     if (document.pointerLockElement) {
       document.exitPointerLock()
@@ -156,7 +156,7 @@
         try {
           viewer.entities.remove(entity)
         } catch (e) {
-          console.log("[v0] Error removing entity:", e)
+          console.log("[Mod] Error removing entity:", e)
         }
       })
     }
@@ -190,11 +190,11 @@
     window.humanTransformBtn.style.background = "#4CAF50"
     window.humanInfoDiv.style.display = "none"
 
-    console.log("[v0] Aircraft respawned, human mode deactivated")
+    console.log("[Mod] Aircraft respawned, human mode deactivated")
   }
 
   function createHumanCharacter() {
-    console.log("[v0] Creating human character at position:", humanPosition)
+    console.log("[Mod] Creating human character at position:", humanPosition)
     const viewer = geofs.api.viewer
 
     const bodyEntity = viewer.entities.add({
@@ -307,11 +307,11 @@
     currentPosition = Cesium.Cartesian3.clone(humanPosition)
     targetPosition = Cesium.Cartesian3.clone(humanPosition)
 
-    console.log("[v0] Human character created successfully")
+    console.log("[Mod] Human character created successfully")
   }
 
   function switchToHumanCamera() {
-    console.log("[v0] Switching camera to human")
+    console.log("[Mod] Switching camera to human")
     cameraFollowEnabled = true
 
     const viewer = geofs.api.viewer
@@ -347,7 +347,7 @@
       },
     })
 
-    console.log("[v0] Camera positioned at human")
+    console.log("[Mod] Camera positioned at human")
   }
 
   function setupKeyboardControls() {
@@ -390,7 +390,7 @@
 
     document.addEventListener("pointerlockchange", () => {
       if (humanMode && document.pointerLockElement === document.body) {
-        console.log("[v0] Mouse locked - Minecraft-style controls active")
+        console.log("[Mod] Mouse locked - Minecraft-style controls active")
       }
     })
   }
