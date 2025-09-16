@@ -25,7 +25,7 @@
   let humanPosition = null
   let targetPosition = null
   let currentPosition = null
-  const walkSpeed = 4.0 // meters per second
+  const walkSpeed = 8.0 // meters per second
   let isWalking = false
   const walkDirection = { x: 0, y: 0 }
   let cameraFollowEnabled = true
@@ -121,7 +121,7 @@
     humanPosition = Cesium.Cartesian3.fromDegrees(
       aircraftPos[1], // longitude
       aircraftPos[0], // latitude
-      aircraftPos[2] + 1, // altitude + 1 meters above ground
+      aircraftPos[2] + 2, // altitude + 2 meters above ground
     )
 
     if (geofs.aircraft.instance) {
@@ -146,6 +146,10 @@
   function exitHumanMode() {
     console.log("[v0] Exiting human mode...")
 
+    if (document.pointerLockElement) {
+      document.exitPointerLock()
+    }
+
     if (humanEntity && humanEntity.entities) {
       const viewer = geofs.api.viewer
       humanEntity.entities.forEach((entity) => {
@@ -163,11 +167,12 @@
       const lon = Cesium.Math.toDegrees(cartographic.longitude)
       const alt = cartographic.height + 100 // Spawn 100m above human
 
-      // Respawn aircraft
-      geofs.aircraft.spawn({
-        location: [lat, lon, alt],
-        heading: 0,
-      })
+      setTimeout(() => {
+        geofs.aircraft.spawn({
+          location: [lat, lon, alt],
+          heading: 0,
+        })
+      }, 100)
     }
 
     // Reset state
@@ -175,6 +180,10 @@
     humanEntity = null
     humanPosition = null
     cameraFollowEnabled = false
+    cameraYaw = 0
+    cameraPitch = 0
+    mouseX = 0
+    mouseY = 0
 
     // Update UI
     window.humanTransformBtn.innerHTML = "🚶 Transform to Human"
@@ -338,7 +347,7 @@
       },
     })
 
-    console.log(" Camera positioned at human")
+    console.log("[v0] Camera positioned at human")
   }
 
   function setupKeyboardControls() {
@@ -359,22 +368,29 @@
     })
 
     document.addEventListener("mousemove", (event) => {
-      if (!humanMode) return
+      if (!humanMode || document.pointerLockElement !== document.body) return
 
-      const sensitivity = 0.002
-      mouseX += event.movementX * sensitivity
-      mouseY += event.movementY * sensitivity
+      const sensitivity = 0.003 // Minecraft-like sensitivity
 
-      // Clamp vertical look
-      mouseY = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, mouseY))
+      // Horizontal rotation (yaw) - left/right mouse movement
+      cameraYaw -= event.movementX * sensitivity
 
-      cameraYaw = mouseX
-      cameraPitch = mouseY
+      // Vertical rotation (pitch) - up/down mouse movement
+      cameraPitch -= event.movementY * sensitivity
+
+      // Clamp pitch to prevent over-rotation (like Minecraft)
+      cameraPitch = Math.max(-Math.PI / 2 + 0.1, Math.min(Math.PI / 2 - 0.1, cameraPitch))
     })
 
     document.addEventListener("click", () => {
-      if (humanMode) {
+      if (humanMode && document.pointerLockElement !== document.body) {
         document.body.requestPointerLock()
+      }
+    })
+
+    document.addEventListener("pointerlockchange", () => {
+      if (humanMode && document.pointerLockElement === document.body) {
+        console.log("[v0] Mouse locked - Minecraft-style controls active")
       }
     })
   }
@@ -411,8 +427,7 @@
     }
 
     if (isWalking) {
-      // Calculate speed (running vs walking)
-      const currentSpeed = keys.SHIFT ? walkSpeed * 8 : walkSpeed * 4 // Much faster movement
+      const currentSpeed = keys.SHIFT ? walkSpeed * 6 : walkSpeed * 3
 
       // Get current position in cartographic coordinates
       const cartographic = Cesium.Cartographic.fromCartesian(currentPosition)
@@ -437,7 +452,7 @@
     }
 
     if (targetPosition && currentPosition) {
-      const lerpFactor = isWalking ? 0.8 : 0.1 // Even more responsive
+      const lerpFactor = isWalking ? 0.9 : 0.1
       currentPosition = Cesium.Cartesian3.lerp(currentPosition, targetPosition, lerpFactor, currentPosition)
 
       // Update human position
@@ -481,44 +496,42 @@
     const viewer = geofs.api.viewer
     const camera = viewer.camera
 
-    const cameraDistance = 5 // Closer to human
-    const cameraHeight = 1 // Actual human eye level (5.5 feet)
+    const cameraHeight = 1.7 // Human eye level
 
-    const cartographic = Cesium.Cartographic.fromCartesian(humanPosition)
+    // Get surface normal for up direction
     const surfaceNormal = Cesium.Cartesian3.normalize(humanPosition, new Cesium.Cartesian3())
 
+    // Calculate east and north directions
     const eastDirection = Cesium.Cartesian3.cross(Cesium.Cartesian3.UNIT_Z, surfaceNormal, new Cesium.Cartesian3())
     Cesium.Cartesian3.normalize(eastDirection, eastDirection)
     const northDirection = Cesium.Cartesian3.cross(surfaceNormal, eastDirection, new Cesium.Cartesian3())
     Cesium.Cartesian3.normalize(northDirection, northDirection)
 
-    const yawRotation = Cesium.Matrix3.fromRotationZ(cameraYaw)
-    const pitchRotation = Cesium.Matrix3.fromRotationX(cameraPitch)
+    const lookDirection = new Cesium.Cartesian3()
 
-    // Combine rotations
-    const combinedRotation = Cesium.Matrix3.multiply(yawRotation, pitchRotation, new Cesium.Matrix3())
+    // Apply yaw rotation around the up axis
+    const yawCos = Math.cos(cameraYaw)
+    const yawSin = Math.sin(cameraYaw)
 
-    // Apply rotation to north direction for look direction
-    const lookDirection = Cesium.Matrix3.multiplyByVector(combinedRotation, northDirection, new Cesium.Cartesian3())
+    // Apply pitch rotation
+    const pitchCos = Math.cos(cameraPitch)
+    const pitchSin = Math.sin(cameraPitch)
 
-    // Position camera behind human based on look direction
-    const backwardDirection = Cesium.Cartesian3.multiplyByScalar(
-      lookDirection,
-      -cameraDistance,
-      new Cesium.Cartesian3(),
-    )
+    // Calculate final look direction
+    lookDirection.x = (northDirection.x * yawCos + eastDirection.x * yawSin) * pitchCos
+    lookDirection.y = (northDirection.y * yawCos + eastDirection.y * yawSin) * pitchCos
+    lookDirection.z = (northDirection.z * yawCos + eastDirection.z * yawSin) * pitchCos + surfaceNormal.z * pitchSin
+
+    Cesium.Cartesian3.normalize(lookDirection, lookDirection)
+
+    // Position camera at human eye level
     const upwardDirection = Cesium.Cartesian3.multiplyByScalar(surfaceNormal, cameraHeight, new Cesium.Cartesian3())
+    const cameraPosition = Cesium.Cartesian3.add(humanPosition, upwardDirection, new Cesium.Cartesian3())
 
-    const cameraPosition = Cesium.Cartesian3.add(humanPosition, backwardDirection, new Cesium.Cartesian3())
-    Cesium.Cartesian3.add(cameraPosition, upwardDirection, cameraPosition)
-
-    const currentCameraPos = camera.position
-    const lerpedCameraPos = Cesium.Cartesian3.lerp(currentCameraPos, cameraPosition, 0.5, new Cesium.Cartesian3()) // Faster camera following
-
-    camera.position = lerpedCameraPos
-    camera.direction = lookDirection // Use mouse-controlled look direction
+    camera.position = cameraPosition
+    camera.direction = lookDirection
     camera.up = surfaceNormal
-    camera.right = eastDirection
+    camera.right = Cesium.Cartesian3.cross(lookDirection, surfaceNormal, new Cesium.Cartesian3())
   }
 
   // Initialize when page loads
