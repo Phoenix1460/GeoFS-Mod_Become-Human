@@ -63,7 +63,7 @@
 
     // Create transform button
     const transformBtn = document.createElement("button")
-    transformBtn.innerHTML = "🚶 Transform to Human"
+    transformBtn.innerHTML = "Transform to Human"
     transformBtn.style.cssText = `
             background: #4CAF50;
             color: white;
