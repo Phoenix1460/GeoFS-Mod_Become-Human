@@ -16,4 +16,9 @@ Click 'console' near the top of the side bar. Paste contents of main.js into con
 ---------
 Updates:
 
-September 16, 2025: V0.1 Beta Release: Added Top Button, Human Mode, Sprinting, Jumping.
+September 16, 2025: V0.1 Beta Release: BETA Added Top Button, BETA Human Mode, BETA Sprinting, BETA Jumping.
+September 16, 2025: V0.2 Beta Release: Fixed camera angle bugs, fixed camera height, fixed sprinting and jumping.
+September 16, 2025: V0.3 Beta Release: Fixed console errors.
+September 17, 2025: V0.4 Beta Release: Fixed earth curved camera problems.
+September 17, 2025: V0.5 Beta Release: Tweaked UI and added better performance updates.
+September 17, 2025: V0.6
