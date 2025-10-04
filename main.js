@@ -33,6 +33,9 @@
   let mouseY = 0
   let cameraYaw = 0
   let cameraPitch = 0
+  let targetYaw = 0
+  let targetPitch = 0
+  const cameraSmoothing = 0.15 // Higher = more responsive, lower = smoother
 
   function initHumanTransform() {
     console.log("Initializing GeoFS Human Transform...")
@@ -184,6 +187,8 @@
     cameraPitch = 0
     mouseX = 0
     mouseY = 0
+    targetYaw = 0
+    targetPitch = 0
 
     // Update UI
     window.humanTransformBtn.innerHTML = "🚶 Transform to Human"
@@ -368,16 +373,13 @@
     document.addEventListener("mousemove", (event) => {
       if (!humanMode || document.pointerLockElement !== document.body) return
 
-      const sensitivity = 0.002 // Smooth sensitivity
+      const sensitivity = 0.003 // Increased from 0.002
 
-      cameraYaw += event.movementX * sensitivity
-      cameraPitch -= event.movementY * sensitivity
+      targetYaw += event.movementX * sensitivity
+      targetPitch -= event.movementY * sensitivity
 
       // Clamp pitch to prevent flipping
-      cameraPitch = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, cameraPitch))
-
-      // Immediately update camera without waiting for update loop
-      updateCamera()
+      targetPitch = Math.max(-Math.PI / 2 + 0.01, Math.min(Math.PI / 2 - 0.01, targetPitch))
     })
 
     document.addEventListener("click", () => {
@@ -502,7 +504,8 @@
   function updateCamera() {
     if (!humanMode || !humanPosition || !cameraFollowEnabled) return
 
-    console.log("[Mod] Updating camera - yaw:", cameraYaw, "pitch:", cameraPitch)
+    cameraYaw = Cesium.Math.lerp(cameraYaw, targetYaw, cameraSmoothing)
+    cameraPitch = Cesium.Math.lerp(cameraPitch, targetPitch, cameraSmoothing)
 
     const viewer = geofs.api.viewer
     const camera = viewer.camera
@@ -517,25 +520,33 @@
       cartographic.height + eyeHeight,
     )
 
-    // Calculate forward direction vector with correct coordinate mapping
-    const forward = new Cesium.Cartesian3(
-      Math.cos(cameraPitch) * Math.sin(cameraYaw), // East/West
-      Math.cos(cameraPitch) * Math.cos(cameraYaw), // North/South
-      Math.sin(cameraPitch), // Up/Down
+    // Create transformation matrix from local to world coordinates
+    const transform = Cesium.Transforms.eastNorthUpToFixedFrame(cameraPosition)
+
+    // Create local direction vector (in ENU coordinates)
+    const localDirection = new Cesium.Cartesian3(
+      Math.sin(cameraYaw) * Math.cos(cameraPitch), // East
+      Math.cos(cameraYaw) * Math.cos(cameraPitch), // North
+      Math.sin(cameraPitch), // Up
     )
 
-    const surfaceNormal = Cesium.Cartesian3.normalize(cameraPosition, new Cesium.Cartesian3())
+    // Transform local direction to world coordinates
+    const worldDirection = Cesium.Matrix4.multiplyByPointAsVector(transform, localDirection, new Cesium.Cartesian3())
+    Cesium.Cartesian3.normalize(worldDirection, worldDirection)
 
-    // Set camera view with proper up vector
+    // Create local up vector and transform to world coordinates
+    const localUp = new Cesium.Cartesian3(0, 0, 1)
+    const worldUp = Cesium.Matrix4.multiplyByPointAsVector(transform, localUp, new Cesium.Cartesian3())
+    Cesium.Cartesian3.normalize(worldUp, worldUp)
+
+    // Set camera view with proper world coordinates
     camera.setView({
       destination: cameraPosition,
       orientation: {
-        direction: forward,
-        up: surfaceNormal, // Use surface normal instead of UNIT_Z to prevent tilt
+        direction: worldDirection,
+        up: worldUp,
       },
     })
-
-    console.log("[Mod] Camera updated with proper surface normal up vector")
   }
 
   // Initialize when page loads
