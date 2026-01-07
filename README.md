@@ -15,6 +15,7 @@ Click 'console' near the top of the side bar. Paste contents of main.js into con
 __________
 TroubleShooting/FAQ
 - Make sure console is in top mode. (is the default on most devices.)
+- If messages appears telling you not to paste unknown content into console, it will prompt you to type something into console to allow the code to be pasted, for example 'allow pasting' on chrome. After doing this, paste the code again and enter it into the console.
 ---------
 Updates:
 
