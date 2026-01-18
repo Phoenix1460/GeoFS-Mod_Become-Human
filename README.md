@@ -15,6 +15,8 @@ Command + Option + J, Paste in content of main.js (Must be enabled in browser se
 
 Right Click (two finger click on trackpad) until menu shows up were mouse is. Click 'inspect' or 'inspect element.' (Must be enabled in browser settings and can be disabled by administrator) 
 Click 'console' near the top of the side bar. Paste contents of main.js into console, and click enter.
+
+To 'become a human' use the button that will appear after installing code into GEO-FS Browser, which can normally be found on the top left of the screen.
 __________
 TroubleShooting/FAQ
 - Make sure console is in top mode. (is the default on most devices.)
