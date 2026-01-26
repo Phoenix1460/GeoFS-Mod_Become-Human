@@ -2,7 +2,7 @@ Phoenix1460 / In Person / Geo-FS Mod
 -
 **IMPORTANT NOTICE: ALWAYS READ LICENSE BEFORE USE**
 -
-
+**NOTICE! This code is still a work in progress! It is unfinished, however it is still usable. The bugs are: unable to become inside a aircraft after becoming human without reloading site, which removes the code and requires input to console again.
 HOW TO INSTALL
 -
 Works in Geo-FS console.
