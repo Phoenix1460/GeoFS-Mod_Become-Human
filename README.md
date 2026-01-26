@@ -3,7 +3,7 @@ Phoenix1460 / In Person / Geo-FS Mod
 **IMPORTANT NOTICE: ALWAYS READ LICENSE BEFORE USE**
 -
 **NOTICE! This code is still a work in progress! It is unfinished, however it is still usable. The bugs are: unable to become inside a aircraft after becoming human without reloading site, which removes the code and requires input to console again.
--
+
 HOW TO INSTALL
 -
 Works in Geo-FS console.
@@ -23,11 +23,3 @@ TroubleShooting/FAQ
 - Make sure console is in top mode. (is the default on most devices.)
 - If messages appears telling you not to paste unknown content into console, it will prompt you to type something into console to allow the code to be pasted, for example 'allow pasting' on chrome. After doing this, paste the code again and enter it into the console.
 ---------
-Updates:
-
-September 16, 2025: V0.1 Beta Release: BETA Added Top Button, BETA Human Mode, BETA Sprinting, BETA Jumping.
-September 16, 2025: V0.2 Beta Release: Fixed camera angle bugs, fixed camera height, fixed sprinting and jumping.
-September 16, 2025: V0.3 Beta Release: Fixed console errors.
-September 17, 2025: V0.4 Beta Release: Fixed earth curved camera problems.
-September 17, 2025: V0.5 Beta Release: Tweaked UI and added better performance updates.
-September 17, 2025: V0.6
