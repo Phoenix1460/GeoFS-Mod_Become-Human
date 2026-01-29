@@ -23,3 +23,13 @@ TroubleShooting/FAQ
 - Make sure console is in top mode. (is the default on most devices.)
 - If messages appears telling you not to paste unknown content into console, it will prompt you to type something into console to allow the code to be pasted, for example 'allow pasting' on chrome. After doing this, paste the code again and enter it into the console.
 ---------
+-
+-
+-
+-
+-
+-
+-
+-
+-
+also i dont really know cesiumJS that well so i had to ask around on the internet to understand cesiumJS more so i could code this :)
