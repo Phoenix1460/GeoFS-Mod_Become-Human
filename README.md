@@ -32,4 +32,4 @@ TroubleShooting/FAQ
 -
 -
 -
-also i dont really know cesiumJS that well so i had to ask around on the internet to understand cesiumJS more so i could code this :)
+also i dont really know cesiumJS that well so i had to ask around on the internet to understand cesiumJS more so i could code this :) ty to cesiumJS learnlog, Gemini Learn, Codeacademy and v0
