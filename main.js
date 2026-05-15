@@ -1,13 +1,9 @@
-// GeoFS Human Transformation Script
-// Adds ability to transform into a human character that can walk around
 
 ;(() => {
-  // Declare geofs and Cesium variables
   let geofs
   let Cesium
   const keys = {} // Declare keys variable
 
-  // Wait for GeoFS and Cesium to be loaded
   function waitForGeoFS() {
     if (typeof window.geofs === "undefined" || typeof window.Cesium === "undefined") {
       setTimeout(waitForGeoFS, 1000)
