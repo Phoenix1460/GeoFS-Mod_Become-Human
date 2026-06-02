@@ -1,29 +1,26 @@
+Copyright (c) 2026 Phoenix1460. All rights reserved.
 
-Copyright (c) 2025-2026 Phoenix1460
-----
-PLEASE READ FULL LICENSE BEFORE ANY USE OF THE SOFTWARE
-----
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), for non-commercial
-use. Any use of this content for commercial use, such as selling/distrubuting, 
-or using this content for any monetization purpose (see line 13 for use in publicly shared videos/content 
-for entertainment on sites including, but not limited to youtube, tiktok, and other entertainment content) 
-is prohibited without approvance by the creator(s).
+1. DEFINITIONS
+"Software" refers to all source code, object code, documentation, assets, images, concepts, and files contained within this repository, as well as any derivative works created by modifying, adapting, or altering the original material. "Licensor" refers to the original creator, Phoenix1460. "User" refers to any individual or entity that accesses, downloads, copies, or uses the Software.
 
-For use in public videos or content on entertainment sites such as, but not limited to, youtube, tiktok, 
-and other similar entertainment platforms, credit to the creator of the software is
-REQUIRED in form as a name of the creator and link to the software.
-For use of the software in non-public uses, by a singular being not sharing information
-or content containing the software, it may be used freely ONLY TO THE CODE'S CAPABILITIES, AND NO FURTHER.
+2. GRANT OF NON-COMMERCIAL LICENSE
+Subject to strict compliance with this Agreement, Licensor grants User a limited, non-exclusive, non-transferable, revocable license to download, execute, and use the Software solely for personal, non-commercial, and non-monetized purposes. 
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software, which should all be approved by the creator.
+3. STRICT PROHIBITION ON COMMERCIALIZATION
+User shall not sell, lease, sublicense, rent, distribute, bundle, or otherwise exploit the Software for any commercial advantage, financial gain, or monetization. This prohibition includes, but is not limited to, utilizing the Software within commercial products, paid services, or ad-supported platforms, unless explicit, prior written authorization is obtained from the Licensor for each specific instance.
 
-THE SOFTWARE INCLUDED IS PROVIDED AS IS. THE CREATOR OF THIS SOFTWARE IS NOT RESPONSIBLE FOR 
-ANY WHATSOEVER NEGATIVE OUTCOMES OR DAMAGES CAUSED BY THIS SOFTWARE. USE THIS SOFTWARE AT YOUR OWN RISK. 
-NO CONSEQUENCES ARE APPLIABLE TO THE CREATOR OF THIS SOFTWARE.
+4. MANDATORY MEDIA AND PUBLIC CONTENT ATTRIBUTION
+User is permitted to feature, demonstrate, or utilize the Software in publicly distributed media, videos, streams, or entertainment content (including, but not limited to, platforms such as YouTube, TikTok, and Twitch), subject to the following absolute condition: User must provide clear, prominent, and visible attribution to the Licensor. Attribution must explicitly state the creator's name ("Phoenix1460") and include a direct, functional hyperlink to the original GitHub repository. Failure to include this attribution immediately terminates this License.
 
-Assume that this software covers all of the topics that were even briefly gestured at in the LICENSE file.
-If LICENSE is disregarded, specific cases may have a fine of up to $250,000 (Two-Hundred-Fifty Thousand Dollars in USD) 
-and up to 5 years in prison for a first time offender and 10 years in prison for a repeat offender. 
-International copyright laws will be enforced for international infringment.
+5. SEVERABILITY AND ANTI-EVASION
+If any provision of this License is found to be unenforceable, the remaining provisions shall remain in full force and effect. User agrees that any attempt to bypass, circumvent, or exploit perceived technical or textual loopholes to evade the restrictions of this License shall be treated as an intentional, bad-faith breach of contract and willful copyright infringement.
+
+6. DISCLAIMER OF LIABILITY, SECURITY, AND WARRANTY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR SECURITY. 
+
+THE LICENSOR DOES NOT WARRANT THAT THE SOFTWARE IS SECURE, ERROR-FREE, OR FREE FROM VULNERABILITIES. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, LOSSES, COSTS, OR DAMAGES WHATSOEVER—INCLUDING BUT NOT LIMITED TO CYBERATTACKS, HACKING EVENTS, DATA BREACHES, SYSTEM COMPROMISES, MALWARE INFECTIONS, OR REVENUE LOSSES—EVEN IF IT IS DEFINITIVELY PROVEN THAT A VULNERABILITY, EXPLOIT, OR DEFECT IN THE SOFTWARE CAUSED OR FACILITATED THE EVENT. THE USER ASSUMES 100% OF THE RISK RELATED TO SECURITY, STABILITY, AND DATA INTEGRITY.
+
+7. GOVERNING LAW, ENFORCEMENT, AND LIQUIDATED DAMAGES
+This Agreement shall be governed by and construed in accordance with the laws of the United States and international copyright treaties (including the Berne Convention). Any breach of this Agreement constitutes willful copyright infringement and breach of contract. 
+
+In the event of a breach, Licensor shall be entitled to seek immediate injunctive relief, actual damages, and the maximum statutory damages allowed under 17 U.S. Code § 504 (up to $150,000 per willful infringement). Furthermore, if User violates the commercial restrictions or attribution clauses, User agrees to pay Licensor liquidated damages in the amount of $250,000 USD per violation, plus all reasonable attorneys' fees and legal costs incurred by the Licensor during enforcement.
